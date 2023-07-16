@@ -1,11 +1,23 @@
 import sqlite3
-
+import logging
+import sys
 from flask import Flask, jsonify, json, render_template, request, url_for, redirect, flash
 from werkzeug.exceptions import abort
 from flask import json
 
+#function that counts a method invocation
+def counted(fn):
+    def wrapper(*args, **kwargs):
+        wrapper.called += 1
+        return fn(*args, **kwargs)
+    wrapper.called = 0
+    wrapper.__name__ = fn.__name__
+    return wrapper
+
+
 # Function to get a database connection.
 # This function connects to database with the name `database.db`
+@counted
 def get_db_connection():
     connection = sqlite3.connect('database.db')
     connection.row_factory = sqlite3.Row
@@ -66,25 +78,39 @@ def create():
 
     return render_template('create.html')
 
-@app.route('/status')
+# Define the healthcheck endpoint
+@app.route('/healthz')
 def status():
     response = app.response_class(
             response=json.dumps({"result":"OK - healthy"}),
             status=200,
             mimetype='application/json'
     )
-
+    app.logger.info('Healthz request successfull')
     return response
 
+# Define the metrics endpoint
 @app.route('/metrics')
 def metrics():
+    numberOfPosts=totalAmountOfPosts()
+    dbConnectionCounts=get_db_connection.called
     response = app.response_class(
-            response=json.dumps({"status":"success","code":0,"data":{"db_connection_count": 1, "post_count": 7}}),
+            response=json.dumps({"status":"success","code":0,"data":{"db_connection_count": dbConnectionCounts, "post_count": numberOfPosts}}),
             status=200,
             mimetype='application/json'
     )
+    app.logger.info('Metrics request successfull')
     return response
+
+def totalAmountOfPosts():
+    connection = get_db_connection()
+    row = [item[0] for item in connection.execute('SELECT count(*) FROM posts').fetchall()]
+    totalNumberOfPosts=row[0]
+    connection.close()
+    return totalNumberOfPosts
 
 # start the application on port 3111
 if __name__ == "__main__":
+   ## stream logs 
+   logging.basicConfig(level=logging.DEBUG)
    app.run(host='0.0.0.0', port='3111')
