@@ -1,9 +1,9 @@
 import sqlite3
 import logging
-import sys
 from flask import Flask, jsonify, json, render_template, request, url_for, redirect, flash
 from werkzeug.exceptions import abort
 from flask import json
+import datetime
 
 #function that counts a method invocation
 def counted(fn):
@@ -49,13 +49,16 @@ def index():
 def post(post_id):
     post = get_post(post_id)
     if post is None:
+      app.logger.error(datetime.datetime.now().strftime("%d/%m/%Y, %H:%M:%S")+', Article with "'+post_id+'" id does not exist!')
       return render_template('404.html'), 404
     else:
+      app.logger.info(datetime.datetime.now().strftime("%d/%m/%Y, %H:%M:%S")+', Article "'+post['title']+'" retrieved!')
       return render_template('post.html', post=post)
 
 # Define the About Us page
 @app.route('/about')
 def about():
+    app.logger.info('"About Us" is retrieved!')
     return render_template('about.html')
 
 # Define the post creation functionality 
@@ -73,7 +76,7 @@ def create():
                          (title, content))
             connection.commit()
             connection.close()
-
+            app.logger.info(datetime.datetime.now().strftime("%d/%m/%Y, %H:%M:%S")+', Article "'+post['title']+'" created!')
             return redirect(url_for('index'))
 
     return render_template('create.html')
