@@ -1,11 +1,67 @@
 ## Docker commands used to build the application 
 # TODO: insert the docker build command
+docker build -t techtrends .
 
 ## Docker commands used to run the application
 # TODO: insert the docker run command
+docker run -d -p 7111:3111 techtrends
 
 ## Docker commands used to get the application logs
 # TODO: insert the docker logs command
+docker logs 001ed2ba56c612ca0e0424ade09062fb7bcacdac6a8f1656da353f4db362e050
 
 ## Logs from the container running the TechTrends application
-# TODO: paste logs from the Docker container 
+# TODO: paste logs from the Docker container
+ * Serving Flask app 'app' (lazy loading)
+ * Environment: production
+   WARNING: This is a development server. Do not use it in a production deployment.
+   Use a production WSGI server instead.
+ * Debug mode: off
+WARNING:werkzeug: * Running on all addresses.
+   WARNING: This is a development server. Do not use it in a production deployment.
+INFO:werkzeug: * Running on http://172.17.0.2:3111/ (Press CTRL+C to quit)
+INFO:werkzeug:172.17.0.1 - - [18/Jul/2023 13:04:21] "GET / HTTP/1.1" 200 -
+INFO:werkzeug:172.17.0.1 - - [18/Jul/2023 13:04:21] "GET /static/css/main.css HTTP/1.1" 304 -
+INFO:werkzeug:172.17.0.1 - - [18/Jul/2023 13:05:38] "GET / HTTP/1.1" 200 -
+INFO:werkzeug:172.17.0.1 - - [18/Jul/2023 13:05:38] "GET /static/css/main.css HTTP/1.1" 304 -
+INFO:app:"About Us" is retrieved!
+INFO:werkzeug:172.17.0.1 - - [18/Jul/2023 13:05:39] "GET /about HTTP/1.1" 200 -
+INFO:werkzeug:172.17.0.1 - - [18/Jul/2023 13:05:39] "GET /static/css/main.css HTTP/1.1" 304 -
+INFO:werkzeug:172.17.0.1 - - [18/Jul/2023 13:05:40] "GET / HTTP/1.1" 200 -
+INFO:werkzeug:172.17.0.1 - - [18/Jul/2023 13:05:40] "GET /static/css/main.css HTTP/1.1" 304 -
+INFO:app:18/07/2023, 13:05:41, Article "2020 CNCF Annual Report" retrieved!
+INFO:werkzeug:172.17.0.1 - - [18/Jul/2023 13:05:41] "GET /1 HTTP/1.1" 200 -
+INFO:werkzeug:172.17.0.1 - - [18/Jul/2023 13:05:41] "GET /static/css/main.css HTTP/1.1" 304 -
+INFO:werkzeug:172.17.0.1 - - [18/Jul/2023 13:05:42] "GET / HTTP/1.1" 200 -
+INFO:werkzeug:172.17.0.1 - - [18/Jul/2023 13:05:42] "GET /static/css/main.css HTTP/1.1" 304 -
+INFO:app:18/07/2023, 13:05:43, Article "KubeCon + CloudNativeCon 2021" retrieved!
+INFO:werkzeug:172.17.0.1 - - [18/Jul/2023 13:05:43] "GET /2 HTTP/1.1" 200 -
+INFO:werkzeug:172.17.0.1 - - [18/Jul/2023 13:05:43] "GET /static/css/main.css HTTP/1.1" 304 -
+INFO:werkzeug:172.17.0.1 - - [18/Jul/2023 13:05:45] "GET / HTTP/1.1" 200 -
+INFO:werkzeug:172.17.0.1 - - [18/Jul/2023 13:05:45] "GET /static/css/main.css HTTP/1.1" 304 -
+INFO:app:18/07/2023, 13:05:46, Article "Kubernetes v1.20 Release Notes" retrieved!
+INFO:werkzeug:172.17.0.1 - - [18/Jul/2023 13:05:46] "GET /3 HTTP/1.1" 200 -
+INFO:werkzeug:172.17.0.1 - - [18/Jul/2023 13:05:46] "GET /static/css/main.css HTTP/1.1" 304 -
+INFO:werkzeug:172.17.0.1 - - [18/Jul/2023 13:05:47] "GET / HTTP/1.1" 200 -
+INFO:werkzeug:172.17.0.1 - - [18/Jul/2023 13:05:47] "GET /static/css/main.css HTTP/1.1" 304 -
+INFO:app:18/07/2023, 13:05:49, Article "CNCF Cloud Native Interactive Landscape" retrieved!
+INFO:werkzeug:172.17.0.1 - - [18/Jul/2023 13:05:49] "GET /4 HTTP/1.1" 200 -
+INFO:werkzeug:172.17.0.1 - - [18/Jul/2023 13:05:49] "GET /static/css/main.css HTTP/1.1" 304 -
+INFO:werkzeug:172.17.0.1 - - [18/Jul/2023 13:05:50] "GET / HTTP/1.1" 200 -
+INFO:werkzeug:172.17.0.1 - - [18/Jul/2023 13:05:50] "GET /static/css/main.css HTTP/1.1" 304 -
+INFO:app:18/07/2023, 13:05:52, Article "CNCF Cloud Native Definition v1.0" retrieved!
+INFO:werkzeug:172.17.0.1 - - [18/Jul/2023 13:05:52] "GET /5 HTTP/1.1" 200 -
+INFO:werkzeug:172.17.0.1 - - [18/Jul/2023 13:05:52] "GET /static/css/main.css HTTP/1.1" 304 -
+INFO:werkzeug:172.17.0.1 - - [18/Jul/2023 13:05:53] "GET / HTTP/1.1" 200 -
+INFO:werkzeug:172.17.0.1 - - [18/Jul/2023 13:05:53] "GET /static/css/main.css HTTP/1.1" 304 -
+INFO:app:18/07/2023, 13:05:54, Article "Kubernetes Certification" retrieved!
+INFO:werkzeug:172.17.0.1 - - [18/Jul/2023 13:05:54] "GET /6 HTTP/1.1" 200 -
+INFO:werkzeug:172.17.0.1 - - [18/Jul/2023 13:05:54] "GET /static/css/main.css HTTP/1.1" 304 -
+INFO:werkzeug:172.17.0.1 - - [18/Jul/2023 13:05:55] "GET / HTTP/1.1" 200 -
+INFO:werkzeug:172.17.0.1 - - [18/Jul/2023 13:05:55] "GET /static/css/main.css HTTP/1.1" 304 -
+INFO:werkzeug:172.17.0.1 - - [18/Jul/2023 13:05:58] "GET /create HTTP/1.1" 200 -
+INFO:werkzeug:172.17.0.1 - - [18/Jul/2023 13:05:58] "GET /static/css/main.css HTTP/1.1" 304 -
+INFO:app:18/07/2023, 13:06:09, Article "New Certification" created!
+INFO:werkzeug:172.17.0.1 - - [18/Jul/2023 13:06:09] "POST /create HTTP/1.1" 302 -
+INFO:werkzeug:172.17.0.1 - - [18/Jul/2023 13:06:09] "GET / HTTP/1.1" 200 -
+INFO:werkzeug:172.17.0.1 - - [18/Jul/2023 13:06:09] "GET /static/css/main.css HTTP/1.1" 304 -
