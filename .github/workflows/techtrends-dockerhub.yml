@@ -30,4 +30,4 @@ jobs:
         with:
           context: .
           push: true
-          tags: techtrends:latest
+          tags: user/techtrends:latest
