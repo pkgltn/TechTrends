@@ -10,6 +10,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       -
+        name: Checkout
+        uses: actions/checkout@v3
+      -
         name: Set up QEMU
         uses: docker/setup-qemu-action@v2
       -
@@ -26,6 +29,5 @@ jobs:
         uses: docker/build-push-action@v4
         with:
           context: .
-          file: ./Dockerfile
           push: true
           tags: techtrends:latest
