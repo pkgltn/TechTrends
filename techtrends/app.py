@@ -105,6 +105,7 @@ def metrics():
     app.logger.info('Metrics request successfull')
     return response
 
+# returns total ammount of posts available
 def totalAmountOfPosts():
     connection = get_db_connection()
     row = [item[0] for item in connection.execute('SELECT count(*) FROM posts').fetchall()]
