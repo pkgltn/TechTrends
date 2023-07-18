@@ -49,7 +49,7 @@ def index():
 def post(post_id):
     post = get_post(post_id)
     if post is None:
-      app.logger.error(datetime.datetime.now().strftime("%d/%m/%Y, %H:%M:%S")+', Article with "'+post_id+'" id does not exist!')
+      app.logger.error(datetime.datetime.now().strftime("%d/%m/%Y, %H:%M:%S")+', Article with "'+str(post_id)+'" id does not exist!')
       return render_template('404.html'), 404
     else:
       app.logger.info(datetime.datetime.now().strftime("%d/%m/%Y, %H:%M:%S")+', Article "'+post['title']+'" retrieved!')
