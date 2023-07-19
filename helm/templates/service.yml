@@ -4,8 +4,8 @@ kind: Service
 ## Set the parameters that make the object identifiable, such as its name, namespace, and labels.
 metadata:
   labels:
-    app: {{ .Values.image.repository }}
-  name: {{ .Values.image.repository }}
+    app: techtrends
+  name: techtrends
   namespace: {{ .Values.namespace.name }}
 ## Define the desired configuration for the Service resource.
 spec:
@@ -19,6 +19,6 @@ spec:
   ## Identify the pods managed by this Service using the following selectors.
   ## In this case, all pods with the label `techtrends`.
   selector:
-    app: {{ .Values.image.repository }}
+    app: techtrends
   ## Define the Service type, here set to ClusterIP.
   type: ClusterIP
