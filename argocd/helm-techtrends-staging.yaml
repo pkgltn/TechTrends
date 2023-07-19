@@ -12,6 +12,6 @@ spec:
     helm:
       valueFiles:
       - values-staging.yaml
-    path: helm
+    chart: helm
     repoURL: https://github.com/pkgltn/TechTrends
     targetRevision: HEAD
