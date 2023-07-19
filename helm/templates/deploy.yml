@@ -6,8 +6,8 @@ kind: Deployment
 metadata:
   annotations:
   labels:
-    app: {{ .Values.image.repository }}
-  name: {{ .Values.image.repository }}
+    app: techtrends
+  name: techtrends
   namespace: {{ .Values.namespace.name }}
 ## Define the desired configuration for the Deployment resource.
 spec:
@@ -18,7 +18,7 @@ spec:
   ## In this case, all pods with the label `go-helloworld`.
   selector:
     matchLabels:
-      app: {{ .Values.image.repository }}
+      app: techtrends
   ## Set the RollingOut strategy for the Deployment.
   ## For example, roll out only 25% of the new pods at a time.
   strategy:
@@ -32,16 +32,16 @@ spec:
     ## For example, all pods should have the label `go-helloworld`
     metadata:
       labels:
-        app: {{ .Values.image.repository }}
+        app: techtrends
     ## Define the desired state of the pod configuration.
     spec:
       containers:
         ## Set the image to be executed inside the container and image pull policy
         ## In this case, run the `go-helloworld` application in version v2.0.0 and
         ## only pull the image if it's not available on the current host.
-      - image: {{ .Values.image.repository }}:{{ .Values.image.tag }}
+      - image: techtrends:{{ .Values.image.tag }}
         imagePullPolicy: {{ .Values.image.pullPolicy }}
-        name: {{ .Values.image.repository }}
+        name: techtrends
         ## Expose the port the container is listening on.
         ## For example, exposing the application port 6112 via TCP.
         ports:

@@ -6,8 +6,8 @@ service:
   type: ClusterIP
 
 image:
-  repository: nginx 
-  tag: 1.17.0
+  repository: pkgltn/TechTrends  
+  tag: latest
   pullPolicy: Always
 
 replicaCount: 5
