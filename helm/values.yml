@@ -8,9 +8,10 @@ service:
   type: ClusterIP
 
 image:
-  repository: pkgltn/TechTrends 
+  repository: techtrends 
   tag: latest
   pullPolicy: IfNotPresent
+  dockerRegistry: ${{ secrets.DOCKERHUB_USERNAME }}
 
 replicaCount: 1
 
