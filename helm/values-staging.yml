@@ -5,11 +5,6 @@ service:
   port: 5111
   type: ClusterIP
 
-image:
-  repository: pkgltn/TechTrends  
-  tag: latest
-  pullPolicy: IfNotPresent
-
 replicaCount: 3
 
 resources:
