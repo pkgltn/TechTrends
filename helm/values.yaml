@@ -11,8 +11,7 @@ image:
   repository: techtrends 
   tag: latest
   pullPolicy: IfNotPresent
-  dockerRegistry: ${{ secrets.DOCKERHUB_USERNAME }}
-
+  dockerRegistry: priyangeentilal28
 replicaCount: 1
 
 ports:
