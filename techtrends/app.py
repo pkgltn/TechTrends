@@ -1,9 +1,39 @@
 import sqlite3
 import logging
+import sys
 from flask import Flask, jsonify, json, render_template, request, url_for, redirect, flash
 from werkzeug.exceptions import abort
 from flask import json
-import datetime
+#import datetime
+
+class InfoFilter(logging.Filter):
+    def filter(self, record):
+        return record.levelname.__ne__(logging.WARNING)   
+
+
+
+# create logger                                                                                                      
+logger_stdout = logging.getLogger('logger_stdout')
+logger_stdout.setLevel(logging.DEBUG) # Set to the lowest level    
+logger_stderr = logging.getLogger('logger_stderr')
+logger_stderr.setLevel(logging.DEBUG) # Set to the lowest level   
+stdout_handler = logging.StreamHandler(sys.stdout)
+stdout_handler.setLevel(logging.INFO)
+# Create a filter that only accepts INFO level messages
+#filter = logging.Filter('INFO')
+#filter.filter = lambda record: record.levelno == logging.INFO
+
+# Add the filter to the stdout_handler
+#stdout_handler.addFilter(filter)
+#stdout_handler.addFilter(InfoFilter())
+stderr_handler = logging.StreamHandler(sys.stderr)
+stderr_handler.setLevel(logging.WARNING)
+formatter = logging.Formatter('%(message)s\n%(asctime)s %(levelname)s    %(message)s',datefmt='%Y-%m-%d %H:%M:%S')
+stderr_handler.setFormatter(formatter)
+stdout_handler.setFormatter(formatter)
+# Add handler to logger                                                                                            
+logger_stdout.addHandler(stdout_handler)
+logger_stderr.addHandler(stderr_handler)
 
 #function that counts a method invocation
 def counted(fn):
@@ -41,6 +71,7 @@ def index():
     connection = get_db_connection()
     posts = connection.execute('SELECT * FROM posts').fetchall()
     connection.close()
+    logger_stdout.info('The homepage has been retrieved.')
     return render_template('index.html', posts=posts)
 
 # Define how each individual article is rendered 
@@ -49,16 +80,18 @@ def index():
 def post(post_id):
     post = get_post(post_id)
     if post is None:
-      app.logger.error(datetime.datetime.now().strftime("%d/%m/%Y, %H:%M:%S")+', Article with "'+str(post_id)+'" id does not exist!')
+      #app.logger.error(datetime.datetime.now().strftime("%d/%m/%Y, %H:%M:%S")+', Article with "'+str(post_id)+'" id does not exist!')
+      logger_stderr.warning('Post Not Found!')
       return render_template('404.html'), 404
     else:
-      app.logger.info(datetime.datetime.now().strftime("%d/%m/%Y, %H:%M:%S")+', Article "'+post['title']+'" retrieved!')
+      #app.logger.info(datetime.datetime.now().strftime("%d/%m/%Y, %H:%M:%S")+', Article "'+post['title']+'" retrieved!')
+      logger_stdout.info('The <<'+post['title']+'>> post has been retrieved.')
       return render_template('post.html', post=post)
 
 # Define the About Us page
 @app.route('/about')
 def about():
-    app.logger.info('"About Us" is retrieved!')
+    logger_stdout.info('The about webpage has been retrieved.')
     return render_template('about.html')
 
 # Define the post creation functionality 
@@ -76,7 +109,8 @@ def create():
                          (title, content))
             connection.commit()
             connection.close()
-            app.logger.info(datetime.datetime.now().strftime("%d/%m/%Y, %H:%M:%S")+', Article "'+title+'" created!')
+            #app.logger.info(datetime.datetime.now().strftime("%d/%m/%Y, %H:%M:%S")+', Article "'+title+'" created!')
+            logger_stdout.info('The <<'+title+'>> post has been created successfully.')
             return redirect(url_for('index'))
 
     return render_template('create.html')
@@ -89,7 +123,7 @@ def status():
             status=200,
             mimetype='application/json'
     )
-    app.logger.info('Healthz request successfull')
+    logger_stdout.info('The healthz webpage has been retrieved.')
     return response
 
 # Define the metrics endpoint
@@ -102,7 +136,7 @@ def metrics():
             status=200,
             mimetype='application/json'
     )
-    app.logger.info('Metrics request successfull')
+    logger_stdout.info('The Metrics webpage has been retrieved.')
     return response
 
 # returns total ammount of posts available
@@ -116,5 +150,8 @@ def totalAmountOfPosts():
 # start the application on port 3111
 if __name__ == "__main__":
    ## stream logs 
-   logging.basicConfig(level=logging.DEBUG)
+   #logging.root.handlers[:]
+   #for handler in logging.root.handlers[:]:
+   # logging.root.removeHandler(handler)
+   #logging.basicConfig(level=logging.DEBUG)
    app.run(host='0.0.0.0', port='3111')
